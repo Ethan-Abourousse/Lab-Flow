@@ -1,0 +1,83 @@
+{
+  "scenarios": [
+    {
+      "scenario_name": "S1_priority_scheduling",
+      "description": "Switch from FIFO to priority-based queueing so urgent samples pre-empt the queue at every resource.",
+      "overrides": {
+        "scheduling_strategy": "priority"
+      }
+    },
+    {
+      "scenario_name": "S2_increased_analyzer_capacity",
+      "description": "Add one extra unit to each analyzer (biochemistry, hematology, immunology) to relieve analysis-stage saturation.",
+      "overrides": {
+        "resources": {
+          "biochemistry_analyzer": { "capacity": 3 },
+          "hematology_analyzer": { "capacity": 2 },
+          "immunology_analyzer": { "capacity": 2 }
+        }
+      }
+    },
+    {
+      "scenario_name": "S3_faster_registration",
+      "description": "Automate registration (e.g. barcode intake) to roughly halve its processing time.",
+      "overrides": {
+        "resources": {
+          "registration": { "min_processing_minutes": 0.5, "max_processing_minutes": 1.5 }
+        }
+      }
+    },
+    {
+      "scenario_name": "S4_resource_redistribution",
+      "description": "Reassign one registration staff member to centrifugation, which the baseline analysis identifies as more saturated.",
+      "overrides": {
+        "resources": {
+          "registration": { "capacity": 1 },
+          "centrifugation": { "capacity": 3 }
+        }
+      }
+    },
+    {
+      "scenario_name": "S5_adaptive_centrifugation_batching",
+      "description": "Replace fixed-interval centrifugation batching with adaptive batching (batch fires on full capacity, oldest-sample wait threshold, or an urgent sample).",
+      "overrides": {
+        "centrifugation_strategy": "adaptive"
+      }
+    },
+    {
+      "scenario_name": "S6_demand_increase_30pct",
+      "description": "Stress test: increase mean arrival rate by 30% with the baseline resource configuration unchanged.",
+      "overrides": {
+        "arrival_rate_per_hour": 13
+      }
+    },
+    {
+      "scenario_name": "S7_temporary_equipment_failure",
+      "description": "Stress test: the biochemistry analyzer loses one of its two units for a 90-minute outage starting at t=200 minutes.",
+      "overrides": {
+        "resource_failures": {
+          "biochemistry_analyzer": {
+            "start_minutes": 200,
+            "duration_minutes": 90,
+            "capacity_reduction": 1
+          }
+        }
+      }
+    },
+    {
+      "scenario_name": "S8_combined_optimization",
+      "description": "Combine the sustained improvement scenarios (S1, S2, S3, S4, S5) into a single configuration; demand/failure stress scenarios (S6, S7) are intentionally excluded.",
+      "overrides": {
+        "scheduling_strategy": "priority",
+        "centrifugation_strategy": "adaptive",
+        "resources": {
+          "registration": { "capacity": 1, "min_processing_minutes": 0.5, "max_processing_minutes": 1.5 },
+          "centrifugation": { "capacity": 3 },
+          "biochemistry_analyzer": { "capacity": 3 },
+          "hematology_analyzer": { "capacity": 2 },
+          "immunology_analyzer": { "capacity": 2 }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "scenario_name": "S0_baseline",
+  "random_seed": 42,
+  "arrival_window_minutes": 600,
+  "max_simulation_minutes": 1200,
+  "arrival_rate_per_hour": 10,
+  "department_mix": {
+    "biochemistry": 0.5,
+    "hematology": 0.3,
+    "immunology": 0.2
+  },
+  "urgent_probability": 0.1,
+  "centrifugation_required": {
+    "biochemistry": true,
+    "hematology": false,
+    "immunology": true
+  },
+  "target_turnaround_minutes": {
+    "routine": 240,
+    "urgent": 60
+  },
+  "scheduling_strategy": "fifo",
+  "centrifugation_strategy": "fixed_interval",
+  "centrifugation_batch_wait_threshold_minutes": 15,
+  "centrifugation_fixed_interval_minutes": 20,
+  "replications": 30,
+  "resource_failures": {},
+  "resources": {
+    "registration": {
+      "name": "registration",
+      "capacity": 2,
+      "min_processing_minutes": 1,
+      "max_processing_minutes": 3
+    },
+    "preparation": {
+      "name": "preparation",
+      "capacity": 3,
+      "min_processing_minutes": 1,
+      "max_processing_minutes": 4
+    },
+    "centrifugation": {
+      "name": "centrifugation",
+      "capacity": 2,
+      "min_processing_minutes": 10,
+      "max_processing_minutes": 15,
+      "batch_capacity": 8
+    },
+    "biochemistry_analyzer": {
+      "name": "biochemistry_analyzer",
+      "capacity": 2,
+      "min_processing_minutes": 4,
+      "max_processing_minutes": 8
+    },
+    "hematology_analyzer": {
+      "name": "hematology_analyzer",
+      "capacity": 1,
+      "min_processing_minutes": 1,
+      "max_processing_minutes": 5
+    },
+    "immunology_analyzer": {
+      "name": "immunology_analyzer",
+      "capacity": 1,
+      "min_processing_minutes": 15,
+      "max_processing_minutes": 30
+    },
+    "validation": {
+      "name": "validation",
+      "capacity": 2,
+      "min_processing_minutes": 1,
+      "max_processing_minutes": 4
+    }
+  }
+}

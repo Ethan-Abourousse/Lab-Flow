@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Streamlit
+.streamlit/
+
+# OS
+.DS_Store
+
+# Generated outputs (kept as directories via .gitkeep, contents regenerated locally)
+results/baseline/*
+results/scenarios/*
+results/comparison/*
+!results/baseline/.gitkeep
+!results/scenarios/.gitkeep
+!results/comparison/.gitkeep
